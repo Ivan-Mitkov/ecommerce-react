@@ -38,14 +38,8 @@ const sections = [
 
 const Directory = (props) => {
   const [section, setSection] = React.useState(sections);
-  const menus = section.map(({ title, id, imageUrl, linkUrl, size }) => (
-    <MenuItem
-      title={title}
-      imageUrl={imageUrl}
-      size={size}
-      key={id}
-      linkUrl={linkUrl}
-    />
+  const menus = section.map(({ id, ...sectionProps }) => (
+    <MenuItem key={id} {...sectionProps} />
   ));
   return <div className="directory-menu">{menus}</div>;
 };

@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+import FormInput from "../form-input";
+import "./styles.scss";
+import Button from "../button";
+
+const SignIn = () => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = form;
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setForm({ email: "", password: "" });
+  };
+  // console.log(form);
+  return (
+    <div className="sign-in">
+      <h2>I already have an account</h2>
+      <span>Sign in with your email and password</span>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          type="email"
+          name="email"
+          value={email}
+          required
+          handleChange={handleChange}
+          label="Email"
+        ></FormInput>
+        {/* <label>Email</label> */}
+        <FormInput
+          type="password"
+          name="password"
+          value={password}
+          required
+          handleChange={handleChange}
+          label="Password"
+        ></FormInput>
+        {/* <label>Password</label> */}
+        <Button type="submit" value="Submit">
+          Sign In
+        </Button>
+      </form>
+    </div>
+  );
+};
+
+export default SignIn;

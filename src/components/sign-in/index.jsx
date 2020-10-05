@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { signInWithGoogle } from "../../firebase/utils";
 import FormInput from "../form-input";
 import "./styles.scss";
 import Button from "../button";
@@ -40,10 +41,10 @@ const SignIn = () => {
           handleChange={handleChange}
           label="Password"
         ></FormInput>
-        {/* <label>Password</label> */}
         <Button type="submit" value="Submit">
           Sign In
         </Button>
+        <Button onClick={signInWithGoogle}>Sign in with Google</Button>
       </form>
     </div>
   );

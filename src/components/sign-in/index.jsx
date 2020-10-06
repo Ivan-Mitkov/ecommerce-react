@@ -54,7 +54,8 @@ const SignIn = () => {
           <Button type="submit" value="Submit">
             Sign In
           </Button>
-          <Button onClick={signInWithGoogle} isGoogleSignIn>
+          {/* type='button' stop form asking for email  */}
+          <Button type="button" onClick={signInWithGoogle} isGoogleSignIn>
             Sign in with Google
           </Button>
         </div>

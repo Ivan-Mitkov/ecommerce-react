@@ -10,9 +10,9 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState(null);
 
   React.useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth ,...rest) => {
       if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+        const userRef = await createUserProfileDocument(userAuth,...rest);
         userRef.onSnapshot((snapshot) => {
           // console.log(snapshot.data());
           setCurrentUser({ id: snapshot.id, ...snapshot.data() });

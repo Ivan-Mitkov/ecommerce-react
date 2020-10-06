@@ -5,6 +5,8 @@ import { auth } from "../../firebase/utils";
 import "./styles.scss";
 //https://create-react-app.dev/docs/adding-images-fonts-and-files/
 import { ReactComponent as Logo } from "../../assets/crown.svg";
+import CartIcon from "../cart-icon";
+import Cart from "../cart";
 
 const Header = ({ currentUser }) => {
   return (
@@ -28,7 +30,9 @@ const Header = ({ currentUser }) => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      <Cart />
     </div>
   );
 };

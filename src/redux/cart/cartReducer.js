@@ -4,7 +4,7 @@ const initialState = { hidden: true, cartItems: [] };
 
 const cartReducer = (state = initialState, action) => {
   const { type, payload } = action;
-  console.log(payload);
+  // console.log(payload);
   switch (type) {
     case TOGGLE_CART_HIDDEN:
       return {

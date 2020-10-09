@@ -7,6 +7,21 @@ export const addItemToCart = (cartItems, newItem) => {
   }
   return [...cartItems, { ...newItem, quantity: 1 }];
 };
+
 export const removeItemFromCart = (cartItems, itemToRemove) => {
   return cartItems.filter((item) => item.id !== itemToRemove.id);
+};
+
+export const decreaseItems = (cartItems, itemToDecrease) => {
+  if (itemToDecrease.quantity === 1) {
+    return cartItems.filter((item) => item.id !== itemToDecrease.id);
+  }
+  return cartItems.map((item) => {
+    if (item.id !== itemToDecrease.id) {
+      return item;
+    }
+    if (item.id === itemToDecrease.id) {
+      return { ...item, quantity: item.quantity - 1 };
+    }
+  });
 };

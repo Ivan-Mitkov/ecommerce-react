@@ -7,6 +7,7 @@ import Header from "./components/header";
 import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
 import SignInUp from "./pages/auth/SignInUp";
+import Checkout from "./pages/checkout";
 import { setCurrentUser } from "./redux/user/userActions";
 
 function App({ setCurrentUser, currentUser }) {
@@ -47,6 +48,19 @@ function App({ setCurrentUser, currentUser }) {
             );
           }}
         ></Route>
+        <Route
+          exact
+          path="/checkout"
+          render={(props) => {
+            // console.log(props)
+            return currentUser ? (
+              <Checkout to="/" {...props} />
+            ) : (
+              <Redirect to="/signin" {...props} />
+            );
+          }}
+        ></Route>
+        {/* <Route exact path="/checkout" component={Checkout}></Route> */}
       </Switch>
     </>
   );

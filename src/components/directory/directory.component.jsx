@@ -9,9 +9,9 @@ const selectDirectories = createSelector(
   (state) => state.directory,
   (directory) => directory.sections
 );
-console.log(selectDirectories);
+
 const Directory = (props) => {
-  const sections = useSelector(selectDirectories);
+  const sections = useSelector(selectDirectories, shallowEqual);
   const menus = sections.map(({ id, ...sectionProps }) => (
     <MenuItem key={id} {...sectionProps} />
   ));

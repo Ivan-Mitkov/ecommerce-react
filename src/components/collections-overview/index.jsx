@@ -5,10 +5,11 @@ import CollectionPreview from "../../components/preview-collection/preview-colle
 
 const shopCollection = createSelector(
   (state) => state.shop,
-  (shop) => shop.collections
+  (shop) => Object.values(shop.collections)
 );
 const CollectionOverview = () => {
   const collections = useSelector(shopCollection, shallowEqual);
+  // console.log(collections)
   return (
     <div className="collections-overview">
       {collections.map(({ id, ...rest }) => {

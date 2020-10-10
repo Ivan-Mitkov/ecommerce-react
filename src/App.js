@@ -28,6 +28,7 @@ function App({ setCurrentUser, currentUser }) {
     );
 
     return () => unsubscribeFromAuth();
+    // eslint-disable-next-line
   }, []);
   // console.log(currentUser);
   return (

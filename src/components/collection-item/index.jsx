@@ -5,7 +5,7 @@ import Button from "../button";
 import { addItem } from "../../redux/cart/cartActions";
 
 const CollectionItem = ({item,addItem }) => {
-  const{id,imageUrl,name,price}=item
+  const{imageUrl,name,price}=item
   const handleClick = () => {
     // console.log(item)
     addItem(item);

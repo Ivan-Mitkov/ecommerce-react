@@ -1,5 +1,5 @@
-import { TOGGLE_CART_HIDDEN, ADD_ITEM, REMOVE_ITEM,DECREASE_QUANTITY,INCREASE_QUANTITY } from "./types";
-import { addItemToCart,removeItemFromCart,increaseItems,decreaseItems } from "./utils";
+import { TOGGLE_CART_HIDDEN, ADD_ITEM, REMOVE_ITEM,DECREASE_QUANTITY } from "./types";
+import { addItemToCart,removeItemFromCart,decreaseItems } from "./utils";
 const initialState = { hidden: true, cartItems: [] };
 
 const cartReducer = (state = initialState, action) => {

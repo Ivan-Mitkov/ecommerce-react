@@ -1,19 +1,13 @@
 import React from "react";
-import { useSelector, shallowEqual } from "react-redux";
-import { createSelector } from "reselect";
-import CollectionPreview from "../../components/preview-collection/preview-collection.component";
+import {Route} from 'react-router-dom';
 
-const shopCollection = createSelector(
-  (state) => state.shop,
-  (shop) => shop.collections
-);
-const Shop = () => {
-  const collections = useSelector(shopCollection, shallowEqual);
+import CollectionOverview from "../../components/collections-overview";
+import Category from '../category/';
+const Shop = ({match}) => {
   return (
     <div className="shop-page">
-      {collections.map(({ id, ...rest }) => {
-        return <CollectionPreview key={id} {...rest}></CollectionPreview>;
-      })}
+      <Route exact path={`${match.path}`} component={CollectionOverview}  />
+      <Route exact path={`${match.path}/:categoryId`} component={Category}  />
     </div>
   );
 };

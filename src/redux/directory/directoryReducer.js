@@ -36,7 +36,7 @@ const initialState = {
 };
 
 const directoryReducer = (state = initialState, action) => {
-  const { type, payload } = action;
+  const { type } = action;
   // console.log(payload);
   switch (type) {
     default:

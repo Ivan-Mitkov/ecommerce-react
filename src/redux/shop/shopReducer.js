@@ -4,7 +4,7 @@ const initialState = {
 };
 
 const shopReducer = (state = initialState, action) => {
-  const { type, payload } = action;
+  const { type } = action;
   // console.log(payload);
   switch (type) {
     default:

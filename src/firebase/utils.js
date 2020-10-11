@@ -32,7 +32,7 @@ export const createUserProfileDocument = async (userAuth, additionData) => {
   const snapShot = await userRef.get();
   //if there is not such user in DB save it
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth;   
+    const { displayName, email } = userAuth;
     const createdAt = new Date();
     try {
       await userRef.set({
@@ -48,15 +48,42 @@ export const createUserProfileDocument = async (userAuth, additionData) => {
   return userRef;
 };
 
-export const addCollectionAndDocuments=async (collectionKey,objectsToAdd)=>{
-  const collectionRef=firestore.collection(collectionKey);
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
   // console.log(collectionRef)
-  const batch=firestore.batch()
-  objectsToAdd.forEach(obj=>{
-    const newDocRef=collectionRef.doc()
-    batch.set(newDocRef,obj)
-  })
-  return await batch.commit()
+  const batch = firestore.batch();
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+  return await batch.commit();
+};
 
-}
+export const converCollectionSnapshotToMap = (collection) => {
+  const transformedCollection = collection.docs.map((doc) => {
+    // console.log(doc.data());
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+  // transform array to object
+  // return transformedCollection.reduce((acc, category) => {
+  //   acc[category.title.toLowerCase()] = category;
+  //   return acc;
+  // }, {});
+  return transformedCollection
+    .map((category) => {
+      return { [category.title.toLowerCase()]: category };
+    })
+    .reduce((a, b) => {
+      return { ...a, ...b };
+    }, {});
+};
 export default firebase;

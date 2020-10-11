@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import {
   auth,
   createUserProfileDocument,
-  addCollectionAndDocuments,
+  // addCollectionAndDocuments,
 } from "./firebase/utils";
 import Header from "./components/header";
 import ShopPage from "./pages/shop/shop.component";

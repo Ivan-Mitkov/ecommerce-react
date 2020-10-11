@@ -2,13 +2,18 @@ import React from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { auth, createUserProfileDocument } from "./firebase/utils";
+import {
+  auth,
+  createUserProfileDocument,
+  addCollectionAndDocuments,
+} from "./firebase/utils";
 import Header from "./components/header";
 import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
 import SignInUp from "./pages/auth/SignInUp";
 import Checkout from "./pages/checkout";
 import { setCurrentUser } from "./redux/user/userActions";
+// import { selectCollectionsForPreview } from "./redux/shop/shopSelector";
 
 function App({ setCurrentUser, currentUser }) {
   React.useEffect(() => {
@@ -26,7 +31,12 @@ function App({ setCurrentUser, currentUser }) {
         }
       }
     );
-
+    //put collection in firebase just one run 
+    // console.log(collectionsArray)
+    // addCollectionAndDocuments(
+    //   "collections",
+    //   collectionsArray.map(({ title, items }) => ({ title, items }))
+    // );
     return () => unsubscribeFromAuth();
     // eslint-disable-next-line
   }, []);
@@ -72,6 +82,10 @@ function App({ setCurrentUser, currentUser }) {
 // });
 const mapStateToProps = (state) => {
   // console.log(state);
-  return { currentUser: state.user.currentUser };
+  return {
+    currentUser: state.user.currentUser,
+    //put collection in firebase 
+    // collectionsArray: selectCollectionsForPreview(state),
+  };
 };
 export default connect(mapStateToProps, { setCurrentUser })(App);

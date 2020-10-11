@@ -23,7 +23,7 @@ const Cart = ({ items, history, toggleCartHidden }) => {
           <span className="empty-message">Your cart is empty</span>
         )}
       </div>
-      <Button onClick={handleClick}>Checkout</Button>
+      <Button onClick={handleClick} inverted={true}>Checkout</Button>
     </div>
   );
 };

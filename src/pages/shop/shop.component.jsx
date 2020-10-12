@@ -1,10 +1,10 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CollectionOverview from "../../components/collections-overview";
 import Collection from "../collection/index";
-import { updateColections } from "../../redux/shop/shopAction";
-import { firestore, converCollectionSnapshotToMap } from "../../firebase/utils";
+import { fetchCollectionAsync } from "../../redux/shop/shopAction";
+import { selectIsCollectionFetching } from "../../redux/shop/shopSelector";
 import WithSpinner from "../../components/with-spinner";
 
 //HOC components
@@ -13,26 +13,11 @@ const CollectionWithSpinner = WithSpinner(Collection);
 
 const Shop = ({ match }) => {
   const dispatch = useDispatch();
-
-  const [isLoading, setIsLoading] = React.useState(true);
+  const isFetching = useSelector(selectIsCollectionFetching);
 
   React.useEffect(() => {
-    const unsubscribeFromSnapshot = () => {
-      //get collection ref from firestore
-      const collectionRef = firestore.collection("collections");
-      //get data from this ref
-      collectionRef.onSnapshot(async (snapshot) => {
-        // console.log(snapshot);
-        //convert data from firebase to format {id,title,items,routeName}
-        const collectionMapped = await converCollectionSnapshotToMap(snapshot);
-        dispatch(updateColections(collectionMapped));
-      });
-    };
-    setIsLoading(false);
+    dispatch(fetchCollectionAsync());
 
-    return () => {
-      return unsubscribeFromSnapshot(), setIsLoading(true);
-    };
     // eslint-disable-next-line
   }, []);
   return (
@@ -41,13 +26,13 @@ const Shop = ({ match }) => {
         exact
         path={`${match.path}`}
         render={(props) => (
-          <CollectionOverviewWithSpinner isLoading={isLoading} {...props} />
+          <CollectionOverviewWithSpinner isLoading={isFetching} {...props} />
         )}
       />
       <Route
         path={`${match.path}/:collectionId`}
         render={(props) => (
-          <CollectionWithSpinner isLoading={isLoading} {...props} />
+          <CollectionWithSpinner isLoading={isFetching} {...props} />
         )}
       ></Route>
     </div>

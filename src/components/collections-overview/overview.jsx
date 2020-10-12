@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
-import CollectionPreview from "../../components/preview-collection/preview-collection.component";
+import CollectionPreview from "../preview-collection/preview-collection.component";
 import { selectCollectionsForPreview } from "../../redux/shop/shopSelector";
 
 const CollectionOverview = () => {

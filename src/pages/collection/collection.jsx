@@ -20,7 +20,7 @@ const Collection = ({ match }) => {
   const collections = useSelector(selectCollection(searched), shallowEqual);
   // console.log(collections)
   const title = searched;
-  return collections ? (
+  return collections && (
     <div className="collection-page">
       <h2 className="title">{title}</h2>
       <div className="items">
@@ -35,7 +35,7 @@ const Collection = ({ match }) => {
         })}
       </div>
     </div>
-  ) : null
+  ) 
 };
 
 export default Collection;

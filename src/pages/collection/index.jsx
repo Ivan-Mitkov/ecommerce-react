@@ -35,9 +35,7 @@ const Collection = ({ match }) => {
         })}
       </div>
     </div>
-  ) : (
-    "COllections"
-  );
+  ) : null
 };
 
 export default Collection;

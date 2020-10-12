@@ -5,16 +5,17 @@ import CollectionPreview from "../../components/preview-collection/preview-colle
 
 const shopCollection = createSelector(
   (state) => state.shop,
-  (shop) => Object.values(shop.collections)
+  (shop) => (shop ? Object.values(shop.collections) : [])
 );
 const CollectionOverview = () => {
   const collections = useSelector(shopCollection, shallowEqual);
-  // console.log(collections)
+  // console.log('col over',collections);
   return (
     <div className="collections-overview">
-      {collections.map(({ id, ...rest }) => {
-        return <CollectionPreview key={id} {...rest}></CollectionPreview>;
-      })}
+      {collections &&
+        collections.map(({ id, ...rest }) => {
+          return <CollectionPreview key={id} {...rest}></CollectionPreview>;
+        })}
     </div>
   );
 };

@@ -1,17 +1,43 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-
+import { connect } from "react-redux";
+import {
+  auth,
+  createUserProfileDocument,
+  // addCollectionAndDocuments,
+} from "./firebase/utils";
 import Header from "./components/header";
 import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
 import SignInUp from "./pages/auth/SignInUp";
 import Checkout from "./pages/checkout";
+import { setCurrentUser } from "./redux/user/userActions";
 // import { selectCollectionsForPreview } from "./redux/shop/shopSelector";
 
-//USING SAGA FOR SIGN IN
-function App({  currentUser }) {
+function App({ setCurrentUser, currentUser }) {
   React.useEffect(() => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(
+      async (userAuth, ...rest) => {
+        if (userAuth) {
+          const userRef = await createUserProfileDocument(userAuth, ...rest);
+          userRef.onSnapshot((snapshot) => {
+            // console.log(snapshot.data());
+            setCurrentUser({ id: snapshot.id, ...snapshot.data() });
+          });
+        } else {
+          //set null
+          setCurrentUser(userAuth);
+        }
+      }
+    );
+    //put collection in firebase just one run 
+    // console.log(collectionsArray)
+    // addCollectionAndDocuments(
+    //   "collections",
+    //   collectionsArray.map(({ title, items }) => ({ title, items }))
+    // );
+    return () => unsubscribeFromAuth();
     // eslint-disable-next-line
   }, []);
   // console.log(currentUser);
@@ -51,5 +77,15 @@ function App({  currentUser }) {
   );
 }
 
-
-export default(App);
+// const mapDispatchToProps = (dispatch) => ({
+//   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+// });
+const mapStateToProps = (state) => {
+  // console.log(state);
+  return {
+    currentUser: state.user.currentUser,
+    //put collection in firebase 
+    // collectionsArray: selectCollectionsForPreview(state),
+  };
+};
+export default connect(mapStateToProps, { setCurrentUser })(App);

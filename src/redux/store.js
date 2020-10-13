@@ -12,7 +12,7 @@ import rootSaga from "./rootSaga";
 // const middleware = [logger,thunk];
 const sagaMiddleware = createSagaMiddleware();
 
-const middlewares = [logger, sagaMiddleware];
+const middlewares = [ sagaMiddleware];
 const initialState = {};
 let store = null;
 //https://github.com/zalmoxisus/redux-devtools-extension

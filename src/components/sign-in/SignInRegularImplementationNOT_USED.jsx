@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  googleSignInStart,
-  emailSignInStart,
-} from "../../redux/user/userActions";
-
+import { auth, signInWithGoogle } from "../../firebase/utils";
 import FormInput from "../form-input";
 import "./styles.scss";
 import Button from "../button";
 
 const SignIn = () => {
-  const dispatch = useDispatch();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -22,11 +16,18 @@ const SignIn = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(emailSignInStart({ email, password }));
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      setForm({
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
   };
-  const handleGoogleSignIn = () => {
-    dispatch(googleSignInStart());
-  };
+
   return (
     <div className="sign-in">
       <h2>I already have an account</h2>
@@ -56,7 +57,7 @@ const SignIn = () => {
           {/* type='button' stop form asking for email  */}
           <Button
             type="button"
-            onClick={handleGoogleSignIn}
+            onClick={signInWithGoogle}
             isGoogleSignIn={true}
           >
             Sign in with Google

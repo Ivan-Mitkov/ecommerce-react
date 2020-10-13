@@ -17,12 +17,23 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({
+// const provider = new firebase.auth.GoogleAuthProvider();
+// provider.setCustomParameters({
+//   prompt: "select_account",
+// });
+
+// export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+
+/** Using promise base auth with SAGA*/
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+
+/** */
 //store user in firestore
 export const createUserProfileDocument = async (userAuth, additionData) => {
   //if there is not user return

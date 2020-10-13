@@ -3,13 +3,16 @@ import { Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import CollectionOverviewContainer from "../../components/collections-overview/container";
 import CollectionContainer from "../collection/container";
-import { fetchCollectionAsync } from "../../redux/shop/shopAction";
+// import { fetchCollectionAsync } from "../../redux/shop/shopAction";
+import { fetchCollectionStart } from "../../redux/shop/shopAction";
 
 const Shop = ({ match }) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(fetchCollectionAsync());
+    //THUNK
+    dispatch(fetchCollectionStart());
+
     // eslint-disable-next-line
   }, []);
   return (

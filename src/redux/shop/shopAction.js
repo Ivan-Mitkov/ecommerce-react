@@ -12,7 +12,7 @@ export const fetchCollectionStart = () => {
 export const fetchCollectionAsync = () => (dispatch) => {
   //get collection ref from firestore
   const collectionRef = firestore.collection("collections");
-  dispatch(fetchCollectionStart);
+  dispatch(fetchCollectionStart());
   //get data from this ref
   collectionRef
     .get()

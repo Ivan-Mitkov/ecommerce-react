@@ -20,14 +20,7 @@ export function* fetchCollectionAsync() {
     yield put(fetchCollectionFailure(error.message));
   }
 
-  // collectionRef
-  //   .get()
-  //   .then((snapshot) => {
-  //     //convert data from firebase to format {id,title,items,routeName}
-  //     const collectionMapped = converCollectionSnapshotToMap(snapshot);
-  //     (fetchCollectionSuccess(collectionMapped));
-  //   })
-  //   .catch((err) => (fetchCollectionFailure(err.message)));
+  
 }
 
 export function* fetchCollection() {

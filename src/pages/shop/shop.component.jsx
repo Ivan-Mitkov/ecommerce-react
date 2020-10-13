@@ -10,7 +10,7 @@ const Shop = ({ match }) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    //THUNK
+    //THUNK and SAGA
     dispatch(fetchCollectionStart());
 
     // eslint-disable-next-line

@@ -4,8 +4,10 @@ import { persistStore } from "redux-persist";
 // import thunk from "redux-thunk";
 import rootReducer from "./rootReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
-import createSagaMiddleware from 'redux-saga';
-import { fetchCollection } from '../redux/shop/shopSagas';
+//SAGA
+import createSagaMiddleware from "redux-saga";
+// import { fetchCollection } from '../redux/shop/shopSagas';
+import rootSaga from "./rootSaga";
 
 // const middleware = [logger,thunk];
 const sagaMiddleware = createSagaMiddleware();
@@ -30,7 +32,8 @@ if (process.env.NODE_ENV === "development") {
 
 //REDUX PERSIST
 export const persistor = persistStore(store);
-sagaMiddleware.run(fetchCollection);
-
+//SAGA
+// sagaMiddleware.run(fetchCollection);
+sagaMiddleware.run(rootSaga);
 
 export default store;

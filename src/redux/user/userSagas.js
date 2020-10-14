@@ -3,6 +3,7 @@ import {
   GOOGLE_SIGN_IN_START,
   EMAIL_SIGN_IN_START,
   CHECK_USER_SESSION,
+  SIGN_OUT_START,
 } from "./types";
 
 import {
@@ -11,7 +12,12 @@ import {
   createUserProfileDocument,
   getCurrentUser,
 } from "../../firebase/utils";
-import { signSuccess, signInFailure } from "./userActions";
+import {
+  signSuccess,
+  signInFailure,
+  signOutSuccess,
+  signOutFailure,
+} from "./userActions";
 
 function* getSnapshotFromUserAuth(userAuth) {
   //work in firebase
@@ -53,6 +59,15 @@ export function* isAuthenticated() {
     yield put(signInFailure(error));
   }
 }
+export function* signOut() {
+  try {
+    yield auth.signOut();
+    //pass to the reducer
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailure(error));
+  }
+}
 export function* onGoogleSignInStart() {
   yield takeLatest(GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
@@ -62,10 +77,14 @@ export function* onEmailSignInStart() {
 export function* onCheckUserSession() {
   yield takeLatest(CHECK_USER_SESSION, isAuthenticated);
 }
+export function* onSignOutStart() {
+  yield takeLatest(SIGN_OUT_START, signOut);
+}
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
     call(onEmailSignInStart),
     call(onCheckUserSession),
+    call(onSignOutStart),
   ]);
 }

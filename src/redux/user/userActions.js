@@ -4,6 +4,7 @@ import {
   SIGN_IN_FAILURE,
   EMAIL_SIGN_IN_START,
   GOOGLE_SIGN_IN_START,
+  CHECK_USER_SESSION,
 } from "./types";
 export const setCurrentUser = (user) => {
   return { type: SET_CURRENT_USER, payload: user };
@@ -21,4 +22,8 @@ export const signInFailure = (error) => {
 export const emailSignInStart = (emailAndPassword) => {
   return { type: EMAIL_SIGN_IN_START, payload: emailAndPassword };
 };
+
+export const checkUserSession=()=>{
+  return {type:CHECK_USER_SESSION}
+}
 

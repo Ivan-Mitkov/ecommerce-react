@@ -1,17 +1,19 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
 import Header from "./components/header";
 import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
 import SignInUp from "./pages/auth/SignInUp";
 import Checkout from "./pages/checkout";
 // import { selectCollectionsForPreview } from "./redux/shop/shopSelector";
-
+import { checkUserSession } from "./redux/user/userActions";
 //USING SAGA FOR SIGN IN
-function App({  currentUser }) {
+function App({ currentUser }) {
+  const dispatch = useDispatch();
   React.useEffect(() => {
+    dispatch(checkUserSession());
     // eslint-disable-next-line
   }, []);
   // console.log(currentUser);
@@ -51,5 +53,4 @@ function App({  currentUser }) {
   );
 }
 
-
-export default(App);
+export default App;

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./styles.scss";
 import CollectionItem from "../../components/collection-item";
 import CollectionContext from "../../context/collections/collectionContext";
 const Collection = ({ match }) => {
-  // console.log(match);
+  const collections = useContext(CollectionContext);
+  // console.log(collections);
   const REAL_PARAMS = new Set([
     "hats",
     "jackets",
@@ -17,30 +18,24 @@ const Collection = ({ match }) => {
   }
   // console.log(collections)
   const title = searched;
+  const collection = collections[searched];
   return (
-    <CollectionContext.Consumer>
-      {(somethingWichIsInTheValueOfContext) => {
-        const collection =
-          somethingWichIsInTheValueOfContext[match.params.collectionId];
-        const { items } = collection;
-        return (
-          <div className="collection-page">
-            <h2 className="title">{title}</h2>
-            <div className="items">
-              {items.map((item) => {
-                return (
-                  <CollectionItem
-                    key={item.id}
-                    item={item}
-                    className="collection-item"
-                  />
-                );
-              })}
-            </div>
-          </div>
-        );
-      }}
-    </CollectionContext.Consumer>
+    collection && (
+      <div className="collection-page">
+        <h2 className="title">{title}</h2>
+        <div className="items">
+          {collection.items.map((item) => {
+            return (
+              <CollectionItem
+                key={item.id}
+                item={item}
+                className="collection-item"
+              />
+            );
+          })}
+        </div>
+      </div>
+    )
   );
 };
 

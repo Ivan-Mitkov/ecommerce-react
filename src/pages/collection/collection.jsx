@@ -1,9 +1,7 @@
 import React from "react";
-import { useSelector, shallowEqual } from "react-redux";
 import "./styles.scss";
 import CollectionItem from "../../components/collection-item";
-import { selectCollection } from "../../redux/shop/shopSelector";
-
+import CollectionContext from "../../context/collections/collectionContext";
 const Collection = ({ match }) => {
   // console.log(match);
   const REAL_PARAMS = new Set([
@@ -17,25 +15,33 @@ const Collection = ({ match }) => {
   if (REAL_PARAMS.has(match.params.collectionId)) {
     searched = match.params.collectionId;
   }
-  const collections = useSelector(selectCollection(searched), shallowEqual);
   // console.log(collections)
   const title = searched;
-  return collections && (
-    <div className="collection-page">
-      <h2 className="title">{title}</h2>
-      <div className="items">
-        {collections.items.map((item) => {
-          return (
-            <CollectionItem
-              key={item.id}
-              item={item}
-              className="collection-item"
-            />
-          );
-        })}
-      </div>
-    </div>
-  ) 
+  return (
+    <CollectionContext.Consumer>
+      {(somethingWichIsInTheValueOfContext) => {
+        const collection =
+          somethingWichIsInTheValueOfContext[match.params.collectionId];
+        const { items } = collection;
+        return (
+          <div className="collection-page">
+            <h2 className="title">{title}</h2>
+            <div className="items">
+              {items.map((item) => {
+                return (
+                  <CollectionItem
+                    key={item.id}
+                    item={item}
+                    className="collection-item"
+                  />
+                );
+              })}
+            </div>
+          </div>
+        );
+      }}
+    </CollectionContext.Consumer>
+  );
 };
 
 export default Collection;

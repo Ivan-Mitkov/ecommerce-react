@@ -31,16 +31,10 @@ function App({ setCurrentUser, currentUser }) {
         }
       }
     );
-    //put collection in firebase just one run 
-    // console.log(collectionsArray)
-    // addCollectionAndDocuments(
-    //   "collections",
-    //   collectionsArray.map(({ title, items }) => ({ title, items }))
-    // );
+    
     return () => unsubscribeFromAuth();
     // eslint-disable-next-line
   }, []);
-  // console.log(currentUser);
   return (
     <>
       <Header />

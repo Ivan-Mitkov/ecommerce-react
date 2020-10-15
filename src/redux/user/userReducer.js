@@ -6,6 +6,9 @@ import {
   EMAIL_SIGN_IN_START,
   SIGN_OUT_SUCCESS,
   SIGN_OUT_FAILURE,
+  SIGN_UP_FAILURE,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_START,
 } from "./types";
 const initialState = { currentUser: null, error: null };
 
@@ -26,6 +29,7 @@ const userReducer = (state = initialState, action) => {
       };
     case SIGN_IN_FAILURE:
     case SIGN_OUT_FAILURE:
+    case SIGN_UP_FAILURE:
       return {
         ...state,
         error: payload,
@@ -36,6 +40,7 @@ const userReducer = (state = initialState, action) => {
         currentUser: payload,
       };
     case EMAIL_SIGN_IN_START:
+    case SIGN_UP_START:
       return {
         ...state,
         currentUser: payload,

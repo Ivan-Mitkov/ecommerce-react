@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { useDispatch, connect, shallowEqual } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import Header from "./components/header";
 import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
@@ -11,12 +11,9 @@ import Checkout from "./pages/checkout";
 import { checkUserSession } from "./redux/user/userActions";
 //USING SAGA FOR SIGN IN
 function App({ currentUser }) {
-  console.log(currentUser)
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(checkUserSession());
-    console.log(currentUser);
-
     // eslint-disable-next-line
   }, []);
   return (

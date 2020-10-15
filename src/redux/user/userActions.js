@@ -7,7 +7,10 @@ import {
   CHECK_USER_SESSION,
   SIGN_OUT_FAILURE,
   SIGN_OUT_SUCCESS,
-  SIGN_OUT_START
+  SIGN_OUT_START,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILURE,
+  SIGN_UP_START,
 } from "./types";
 export const setCurrentUser = (user) => {
   return { type: SET_CURRENT_USER, payload: user };
@@ -35,7 +38,15 @@ export const signOutStart = () => {
 export const signOutFailure = (error) => {
   return { type: SIGN_OUT_FAILURE, payload: error };
 };
-export const checkUserSession=()=>{
-  return {type:CHECK_USER_SESSION}
-}
-
+export const signUpSuccess = ({ user, additionalData }) => {
+  return { type: SIGN_UP_SUCCESS, payload: { user, additionalData } };
+};
+export const signUpStart = (userCredentials) => {
+  return { type: SIGN_UP_START, payload: userCredentials };
+};
+export const signUpFailure = (error) => {
+  return { type: SIGN_UP_FAILURE, payload: error };
+};
+export const checkUserSession = () => {
+  return { type: CHECK_USER_SESSION };
+};

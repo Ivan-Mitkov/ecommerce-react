@@ -3,8 +3,9 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   DECREASE_QUANTITY,
+  CLEAR_CART,
 } from "./types";
-import { SIGN_OUT_SUCCESS } from "../user/types";
+// import { SIGN_OUT_SUCCESS } from "../user/types";
 import { addItemToCart, removeItemFromCart, decreaseItems } from "./utils";
 const initialState = { hidden: true, cartItems: [] };
 
@@ -34,7 +35,8 @@ const cartReducer = (state = initialState, action) => {
         cartItems: decreaseItems(state.cartItems, payload),
       };
     //clear the cart on singn out
-    case SIGN_OUT_SUCCESS:
+    case CLEAR_CART:
+    // case SIGN_OUT_SUCCESS:
       return {
         ...state,
         cartItems: [],

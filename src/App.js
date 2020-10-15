@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect, shallowEqual } from "react-redux";
 import Header from "./components/header";
 import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
@@ -11,12 +11,14 @@ import Checkout from "./pages/checkout";
 import { checkUserSession } from "./redux/user/userActions";
 //USING SAGA FOR SIGN IN
 function App({ currentUser }) {
+  console.log(currentUser)
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(checkUserSession());
+    console.log(currentUser);
+
     // eslint-disable-next-line
   }, []);
-  // console.log(currentUser);
   return (
     <>
       <Header />
@@ -27,7 +29,6 @@ function App({ currentUser }) {
           exact
           path="/signin"
           render={(props) => {
-            // console.log(props)
             return currentUser ? (
               <Redirect to="/" {...props} />
             ) : (
@@ -38,10 +39,10 @@ function App({ currentUser }) {
         <Route
           exact
           path="/checkout"
+          // component={Checkout}
           render={(props) => {
-            // console.log(props)
             return currentUser ? (
-              <Checkout to="/" {...props} />
+              <Checkout to="/checkout" {...props} />
             ) : (
               <Redirect to="/signin" {...props} />
             );
@@ -52,5 +53,7 @@ function App({ currentUser }) {
     </>
   );
 }
-
-export default App;
+const mapStateToProps = (state) => {
+  return { currentUser: state.user.currentUser };
+};
+export default connect(mapStateToProps)(App);

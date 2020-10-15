@@ -1,5 +1,11 @@
-import { TOGGLE_CART_HIDDEN, ADD_ITEM, REMOVE_ITEM,DECREASE_QUANTITY } from "./types";
-import { addItemToCart,removeItemFromCart,decreaseItems } from "./utils";
+import {
+  TOGGLE_CART_HIDDEN,
+  ADD_ITEM,
+  REMOVE_ITEM,
+  DECREASE_QUANTITY,
+} from "./types";
+import { SIGN_OUT_SUCCESS } from "../user/types";
+import { addItemToCart, removeItemFromCart, decreaseItems } from "./utils";
 const initialState = { hidden: true, cartItems: [] };
 
 const cartReducer = (state = initialState, action) => {
@@ -21,13 +27,18 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         cartItems: removeItemFromCart(state.cartItems, payload),
       };
-    
+
     case DECREASE_QUANTITY:
       return {
         ...state,
         cartItems: decreaseItems(state.cartItems, payload),
       };
-
+    //clear the cart on singn out
+    case SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        cartItems: [],
+      };
     default:
       return state;
   }

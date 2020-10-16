@@ -1,15 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./styles.scss";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import {
-  selectCartItems,
-  selectCartTotal,
-} from "../../redux/cart/cartSelectors";
+
 import CheckoutItem from "../../components/checkout-item/";
 import StripeButton from "../../components/stripe-button";
+import { CartContext } from "../../providers/cart/CartProvider";
 
-const Checkout = ({ cartItems, total }) => {
+const Checkout = () => {
+  const { cartItems, total } = useContext(CartContext);
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -34,7 +31,7 @@ const Checkout = ({ cartItems, total }) => {
       ))}
       <div className="total">TOTAL: ${total}</div>
       <StripeButton price={total} />
-      <div className='test-warning'>
+      <div className="test-warning">
         <a href="https://stripe.com/docs/testing" target="_blank">
           {" "}
           *Testing cards numbers for stripe*
@@ -43,8 +40,5 @@ const Checkout = ({ cartItems, total }) => {
     </div>
   );
 };
-const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems,
-  total: selectCartTotal,
-});
-export default connect(mapStateToProps)(Checkout);
+
+export default Checkout;

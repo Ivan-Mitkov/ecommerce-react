@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useContext } from "react";
 import "./styles.scss";
 import Button from "../button";
-import { addItem } from "../../redux/cart/cartActions";
+import { CartContext } from "../../providers/cart/CartProvider";
 
-const CollectionItem = ({item,addItem }) => {
-  const{imageUrl,name,price}=item
+const CollectionItem = ({ item }) => {
+  const { addItem } = useContext(CartContext);
+  const { imageUrl, name, price } = item;
   const handleClick = () => {
     // console.log(item)
     addItem(item);
@@ -22,11 +22,11 @@ const CollectionItem = ({item,addItem }) => {
         <span className="name">{name}</span>
         <span className="price">${price}</span>
       </div>
-      <Button inverted onClick={ handleClick} className='custom-button'>
+      <Button inverted onClick={handleClick} className="custom-button">
         Add to cart
       </Button>
     </div>
   );
 };
 
-export default connect(null, { addItem })(CollectionItem);
+export default(CollectionItem);

@@ -6,31 +6,25 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 import CartIcon from "../cart-icon";
 import Cart from "../cart";
 import CurrentUserContext from "../../context/currentUser/currentUserContext";
-import CartContext from "../../context/cart/cartContext";
 import {
   HeaderContainer,
   LogoContainer,
   OptionsContainer,
   OptionLink,
 } from "./styles";
+import { CartContext } from "../../providers/cart/CartProvider";
+
 
 const Header = () => {
   const currentUser = useContext(CurrentUserContext);
   const cart = useContext(CartContext);
-  const [cartHidden, setCartHidden] = React.useState(true);
-  React.useEffect(() => {
-    const { hidden } = cart;
-    setCartHidden(hidden);
-  }, []);
-
-  const toggleHidden = () => {
-    setCartHidden(!cartHidden);
-  };
+  const { hidden } = cart;
   return (
     <HeaderContainer>
       <LogoContainer to="/">
         <Logo className="logo" />
       </LogoContainer>
+
       <OptionsContainer>
         <OptionLink to="/shop">SHOP</OptionLink>
         <OptionLink to="/shop">CONTACT</OptionLink>
@@ -41,11 +35,10 @@ const Header = () => {
         ) : (
           <OptionLink to="/signin">SIGN IN</OptionLink>
         )}
-        <CartContext.Provider value={{ hidden: cartHidden, toggleHidden }}>
-          <CartIcon />
-        </CartContext.Provider>
+
+        <CartIcon />
       </OptionsContainer>
-      {cartHidden ? null : <Cart />}
+      {hidden ? null : <Cart />}
     </HeaderContainer>
   );
 };

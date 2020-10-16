@@ -1,26 +1,17 @@
 import React from "react";
-import { connect } from "react-redux";
 import "./styles.scss";
 import { ReactComponent as ShoppingBag } from "../../assets/shopping-bag.svg";
-import { selectCartItemsCount } from "../../redux/cart/cartSelectors";
-import CartContext from "../../context/cart/cartContext";
+import { CartContext } from "../../providers/cart/CartProvider";
 
-const CartIcon = ({ itemsCount }) => { 
-  const cart=React.useContext(CartContext)
-  const{hidden,toggleHidden}=cart
+const CartIcon = () => {
+  const cart = React.useContext(CartContext);
+  const { toggleHidden, cartItemsCount } = cart;
   return (
     <div className="cart-icon" onClick={toggleHidden}>
       <ShoppingBag className="shopping-icon" />
-      <span className="item-count">{itemsCount}</span>
+      <span className="item-count">{cartItemsCount}</span>
     </div>
   );
 };
-const mapStateToProps = (state) => {
-  // console.log("Call mapStateToProps icon");
-  return {
-    itemsCount: selectCartItemsCount(state),
-  };
-  
-};
 
-export default connect(mapStateToProps )(CartIcon);
+export default CartIcon;

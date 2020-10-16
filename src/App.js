@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
 import {
   auth,
   createUserProfileDocument,
@@ -12,10 +11,10 @@ import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
 import SignInUp from "./pages/auth/SignInUp";
 import Checkout from "./pages/checkout";
-import { setCurrentUser } from "./redux/user/userActions";
-// import { selectCollectionsForPreview } from "./redux/shop/shopSelector";
+import CurrentUserContext from './context/currentUser/currentUserContext';
 
-function App({ setCurrentUser, currentUser }) {
+function App() {
+  const [currentUser,setCurrentUser]=React.useState(null)
   React.useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(
       async (userAuth, ...rest) => {
@@ -36,7 +35,7 @@ function App({ setCurrentUser, currentUser }) {
     // eslint-disable-next-line
   }, []);
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage}></Route>
@@ -67,19 +66,9 @@ function App({ setCurrentUser, currentUser }) {
         ></Route>
         {/* <Route exact path="/checkout" component={Checkout}></Route> */}
       </Switch>
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-// });
-const mapStateToProps = (state) => {
-  // console.log(state);
-  return {
-    currentUser: state.user.currentUser,
-    //put collection in firebase 
-    // collectionsArray: selectCollectionsForPreview(state),
-  };
-};
-export default connect(mapStateToProps, { setCurrentUser })(App);
+
+export default (App);

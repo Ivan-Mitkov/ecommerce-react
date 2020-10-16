@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -7,9 +7,9 @@ import { auth } from "../../firebase/utils";
 //https://create-react-app.dev/docs/adding-images-fonts-and-files/
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { selectCartHidden } from "../../redux/cart/cartSelectors";
-import { selectCurrentUser } from "../../redux/user/userSelectors";
 import CartIcon from "../cart-icon";
 import Cart from "../cart";
+import CurrentUserContext from "../../context/currentUser/currentUserContext";
 import {
   HeaderContainer,
   LogoContainer,
@@ -17,7 +17,8 @@ import {
   OptionLink,
 } from "./styles";
 
-const Header = ({ currentUser, cartHidden }) => {
+const Header = ({ cartHidden }) => {
+  const currentUser = useContext(CurrentUserContext);
   return (
     <HeaderContainer>
       <LogoContainer to="/">
@@ -43,7 +44,6 @@ const Header = ({ currentUser, cartHidden }) => {
 //createStructuredSelector({inputSelectors}, selectorCreator = createSelector)
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
   cartHidden: selectCartHidden,
 });
 // const mapStateToProps = (state) => ({

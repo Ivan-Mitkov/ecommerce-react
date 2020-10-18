@@ -8,7 +8,7 @@ import { auth } from "../../firebase/utils";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { selectCurrentUser } from "../../redux/user/userSelectors";
 import CartIcon from "../cart-icon/container";
-import Cart from "../cart";
+import Cart from "../cart/container";
 import {
   HeaderContainer,
   LogoContainer,

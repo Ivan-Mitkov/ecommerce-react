@@ -18,9 +18,15 @@ import { gql, useQuery } from "@apollo/client";
 import { resolvers, typeDefs } from "./graphql/resolvers";
 
 // Query for writing in InMemoryCache
-const query = gql`
+const GET_CART_HIDDEN = gql`
   {
-    cartHidden
+    # get from client cash
+    cartHidden @client
+  }
+`;
+const GET_CART_ITEMS = gql`
+  {
+    cartItems @client
   }
 `;
 const cache = new InMemoryCache();
@@ -33,11 +39,19 @@ const client = new ApolloClient({
 });
 
 client.writeQuery({
-  query,
+  query: GET_CART_HIDDEN,
   data: {
     cartHidden: true,
   },
 });
+client.writeQuery({
+  query: GET_CART_ITEMS,
+  data: {
+    cartItems: [],
+  },
+});
+
+// console.log(client.cache);
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>

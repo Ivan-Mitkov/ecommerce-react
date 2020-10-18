@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.scss";
-import CollectionItem from "../../components/collection-item";
+import CollectionItem from "../../components/collection-item/container";
 
 const Collection = ({ match,collections }) => {
   const REAL_PARAMS = new Set([

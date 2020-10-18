@@ -1,8 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
 import "./styles.scss";
 import Button from "../button";
-import { addItem } from "../../redux/cart/cartActions";
 
 const CollectionItem = ({item,addItem }) => {
   const{imageUrl,name,price}=item
@@ -29,4 +27,4 @@ const CollectionItem = ({item,addItem }) => {
   );
 };
 
-export default connect(null, { addItem })(CollectionItem);
+export default(CollectionItem);

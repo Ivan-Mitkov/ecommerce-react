@@ -11,7 +11,7 @@ import Header from "./components/header/container";
 import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
 import SignInUp from "./pages/auth/SignInUp";
-import Checkout from "./pages/checkout";
+import Checkout from "./pages/checkout/container";
 import { setCurrentUser } from "./redux/user/userActions";
 // import { selectCollectionsForPreview } from "./redux/shop/shopSelector";
 

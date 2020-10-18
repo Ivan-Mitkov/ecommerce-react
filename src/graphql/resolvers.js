@@ -1,5 +1,10 @@
 import { gql } from "@apollo/client";
-import { addItemToCart, decreaseItems, removeItemFromCart } from "./utils";
+import {
+  addItemToCart,
+  decreaseItems,
+  removeItemFromCart,
+  getCartQuantity,
+} from "./utils";
 export const typeDefs = gql`
   extend type Mutation {
     ToggleCartHidden: Boolean!
@@ -24,6 +29,11 @@ const GET_CART_HIDDEN = gql`
 const GET_CART_ITEMS = gql`
   {
     cartItems @client
+  }
+`;
+const TOTAL = gql`
+  {
+    itemCount @client
   }
 `;
 
@@ -56,6 +66,11 @@ export const resolvers = {
         query: GET_CART_ITEMS,
         data: { cartItems: newCartItems },
       });
+
+      cache.writeQuery({
+        query: TOTAL,
+        data: { itemCount: getCartQuantity(newCartItems) },
+      });
       //return new array
       return newCartItems;
     },
@@ -69,6 +84,10 @@ export const resolvers = {
         query: GET_CART_ITEMS,
         data: { cartItems: newCartItems },
       });
+      cache.writeQuery({
+        query: TOTAL,
+        data: { itemCount: getCartQuantity(newCartItems) },
+      });
       //return new array
       return newCartItems;
     },
@@ -81,6 +100,10 @@ export const resolvers = {
       cache.writeQuery({
         query: GET_CART_ITEMS,
         data: { cartItems: newCartItems },
+      });
+      cache.writeQuery({
+        query: TOTAL,
+        data: { itemCount: getCartQuantity(newCartItems) },
       });
       //return new array
       return newCartItems;

@@ -1,16 +1,27 @@
 import React from "react";
-import { gql, useQuery,useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import CartIcon from "./index";
 const TOGGLE_CART_HIDDEN = gql`
-#like toggleCartHidden from resolvers mutation but capitalize
+  #like toggleCartHidden from resolvers mutation but capitalize
   mutation ToggleCartHidden($type: String!) {
     #toggleCartHidden from resolvers mutation
-   toggleCartHidden @client
+    toggleCartHidden @client
+  }
+`;
+const GET_TOTAL_COUNT = gql`
+  {
+    itemCount @client
   }
 `;
 const Container = () => {
-  const [toggleCartHidden, { data }] = useMutation(TOGGLE_CART_HIDDEN);
-  return <CartIcon handleClick={toggleCartHidden}></CartIcon>;
+  const [toggleCartHidden] = useMutation(TOGGLE_CART_HIDDEN);
+  const { loading, error, data } = useQuery(GET_TOTAL_COUNT);
+  return (
+    <CartIcon
+      handleClick={toggleCartHidden}
+      itemsCount={data.itemCount}
+    ></CartIcon>
+  );
 };
 
 export default Container;

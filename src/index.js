@@ -29,6 +29,11 @@ const GET_CART_ITEMS = gql`
     cartItems @client
   }
 `;
+const GET_TOTAL = gql`
+  {
+    itemCount @client
+  }
+`;
 const cache = new InMemoryCache();
 const client = new ApolloClient({
   link: createHttpLink({ uri: "https://crwn-clothing.com" }),
@@ -50,8 +55,14 @@ client.writeQuery({
     cartItems: [],
   },
 });
+client.writeQuery({
+  query: GET_TOTAL,
+  data: {
+    itemCount: 0,
+  },
+});
 
-// console.log(client.cache);
+console.log(client.cache);
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>

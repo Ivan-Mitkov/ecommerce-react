@@ -24,3 +24,8 @@ export const decreaseItems = (cartItems, itemToDecrease) => {
     return { ...item, quantity: item.quantity - 1 };
   });
 };
+
+export const getCartQuantity = (cartItems) => {
+  // console.log("memoized?");
+  return cartItems.map((item) => item.quantity).reduce((a, b) => a + b, 0);
+};

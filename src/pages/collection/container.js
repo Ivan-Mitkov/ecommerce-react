@@ -1,12 +1,36 @@
-import { compose } from "redux";
-import { connect } from "react-redux";
-import WithSpinner from "../../components/with-spinner";
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
+import Spinner from "../../components/spinner";
 import Collection from "./collection";
 
-const mapStateToProps = (state) => {
-  return { isLoading: state.shop.isFetching };
-};
+const GET_COLLECTION_BY_TITLE = gql`
+  query getCollectionsByTitle($title: String!) {
+    getCollectionsByTitle(title: $title) {
+      id
+      title
+      items {
+        id
+        name
+        price
+        imageUrl
+      }
+    }
+  }
+`;
 
-const Container = compose(connect(mapStateToProps), WithSpinner)(Collection);
+const Container = ({ match }) => {
+  const { loading, error, data } = useQuery(GET_COLLECTION_BY_TITLE, {
+    variables: { title: match.params.collectionId },
+  });
+  if (loading) return <Spinner />;
+  if (error) return `Error! ${error}`;
+  console.log(data);
+  return (
+    <Collection
+      collections={data.getCollectionsByTitle.items}
+      match={match}
+    ></Collection>
+  );
+};
 
 export default Container;

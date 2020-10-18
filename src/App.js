@@ -7,7 +7,7 @@ import {
   createUserProfileDocument,
   // addCollectionAndDocuments,
 } from "./firebase/utils";
-import Header from "./components/header";
+import Header from "./components/header/container";
 import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
 import SignInUp from "./pages/auth/SignInUp";
@@ -31,12 +31,7 @@ function App({ setCurrentUser, currentUser }) {
         }
       }
     );
-    //put collection in firebase just one run 
-    // console.log(collectionsArray)
-    // addCollectionAndDocuments(
-    //   "collections",
-    //   collectionsArray.map(({ title, items }) => ({ title, items }))
-    // );
+   
     return () => unsubscribeFromAuth();
     // eslint-disable-next-line
   }, []);

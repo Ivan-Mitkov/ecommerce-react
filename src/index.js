@@ -7,31 +7,37 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./redux/store";
 //GRAPHQL
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { createHttpLink } from "apollo-link-http";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
+// import { createHttpLink } from "apollo-link-http";
 import { gql, useQuery } from "@apollo/client";
+import { resolvers, typeDefs } from "./graphql/resolvers";
 
+// Query for writing in InMemoryCache
+const query = gql`
+  {
+    cartHidden
+  }
+`;
+const cache = new InMemoryCache();
 const client = new ApolloClient({
   link: createHttpLink({ uri: "https://crwn-clothing.com" }),
-  cache: new InMemoryCache(),
+  cache,
+  //include type deffinition and resolvers in client
+  typeDefs,
+  resolvers,
 });
 
-//check if working
-// client.query({
-//   query: gql`
-//     {
-//       collection(id: "cjwuuj5bz000i0719rrtw5gqk") {
-//         title
-//         items {
-//           id
-//           name
-//           price
-//           imageUrl
-//         }
-//       }
-//     }
-//   `,
-// }).then(res=>console.log(res));
+client.writeQuery({
+  query,
+  data: {
+    cartHidden: true,
+  },
+});
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>

@@ -6,9 +6,8 @@ import { auth } from "../../firebase/utils";
 // import "./styles.scss";
 //https://create-react-app.dev/docs/adding-images-fonts-and-files/
 import { ReactComponent as Logo } from "../../assets/crown.svg";
-import { selectCartHidden } from "../../redux/cart/cartSelectors";
 import { selectCurrentUser } from "../../redux/user/userSelectors";
-import CartIcon from "../cart-icon";
+import CartIcon from "../cart-icon/container";
 import Cart from "../cart";
 import {
   HeaderContainer,
@@ -17,7 +16,7 @@ import {
   OptionLink,
 } from "./styles";
 
-const Header = ({ currentUser, cartHidden }) => {
+const Header = ({ currentUser, hidden:cartHidden }) => {
   return (
     <HeaderContainer>
       <LogoContainer to="/">
@@ -40,14 +39,9 @@ const Header = ({ currentUser, cartHidden }) => {
   );
 };
 
-//createStructuredSelector({inputSelectors}, selectorCreator = createSelector)
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  cartHidden: selectCartHidden,
 });
-// const mapStateToProps = (state) => ({
-//   currentUser: selectCurrentUser(state),
-//   cartHidden: selectCartHidden(state),
-// });
+
 export default connect(mapStateToProps)(Header);

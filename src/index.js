@@ -17,21 +17,21 @@ const client = new ApolloClient({
 });
 
 //check if working
-client.query({
-  query: gql`
-    {
-      collection(id: "cjwuuj5bz000i0719rrtw5gqk") {
-        title
-        items {
-          id
-          name
-          price
-          imageUrl
-        }
-      }
-    }
-  `,
-}).then(res=>console.log(res));
+// client.query({
+//   query: gql`
+//     {
+//       collection(id: "cjwuuj5bz000i0719rrtw5gqk") {
+//         title
+//         items {
+//           id
+//           name
+//           price
+//           imageUrl
+//         }
+//       }
+//     }
+//   `,
+// }).then(res=>console.log(res));
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>

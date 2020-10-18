@@ -1,12 +1,30 @@
-import { compose } from "redux";
-import { connect } from "react-redux";
-import WithSpinner from "../with-spinner";
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
 import Overview from "./overview";
+import Spinner from "../spinner";
 
-const mapStateToProps = (state) => {
-  return { isLoading: state.shop.isFetching };
+const GET_COLLECTIONS = gql`
+  {
+    collections {
+      id
+      title
+      items {
+        id
+        name
+        price
+        imageUrl
+      }
+    }
+  }
+`;
+const Container = () => {
+  const { loading, error, data } = useQuery(GET_COLLECTIONS);
+
+  if (loading) return <Spinner />;
+  if (error) return `Error! ${error.message}`;
+  return (
+    <Overview collections={data.collections}>{console.log(data)}</Overview>
+  );
 };
-
-const Container = compose(connect(mapStateToProps), WithSpinner)(Overview);
 
 export default Container;

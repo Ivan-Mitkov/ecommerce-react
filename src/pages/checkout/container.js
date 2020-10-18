@@ -8,6 +8,7 @@ const GET_CART_ITEMS = gql`
     cartItems @client
   }
 `;
+
 const Container = () => {
   const { loading, error, data } = useQuery(GET_CART_ITEMS);
   if (loading) return <Spinner />;

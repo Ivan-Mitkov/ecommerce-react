@@ -17,7 +17,7 @@ const GET_CART_ITEMS = gql`
 const Container = () => {
   const [toggleCartHidden] = useMutation(TOGGLE_CART_HIDDEN);
   const { loading, error, data } = useQuery(GET_CART_ITEMS);
-  console.log(data);
+  // console.log(data);
   return (
     <Cart toggleCartHidden={toggleCartHidden} items={data.cartItems}></Cart>
   );

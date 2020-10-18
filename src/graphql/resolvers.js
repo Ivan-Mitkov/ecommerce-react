@@ -1,9 +1,11 @@
 import { gql } from "@apollo/client";
-import { addItemToCart } from "./utils";
+import { addItemToCart, decreaseItems, removeItemFromCart } from "./utils";
 export const typeDefs = gql`
   extend type Mutation {
     ToggleCartHidden: Boolean!
     AddItemToCart(item: Item): [Item]!
+    DecreaseItems(item: Item): [Item]!
+    RemoveItem(item: Item): [Item]!
   }
   #type Item from schema
   extend type Item {
@@ -49,6 +51,32 @@ export const resolvers = {
       const { cartItems } = cache.readQuery({ query: GET_CART_ITEMS });
       //create new array
       const newCartItems = addItemToCart(cartItems, item);
+      //write in cache
+      cache.writeQuery({
+        query: GET_CART_ITEMS,
+        data: { cartItems: newCartItems },
+      });
+      //return new array
+      return newCartItems;
+    },
+    decreaseItems: (_root, { item }, { cache }, _info) => {
+      //get from cashe
+      const { cartItems } = cache.readQuery({ query: GET_CART_ITEMS });
+      //create new array
+      const newCartItems = decreaseItems(cartItems, item);
+      //write in cache
+      cache.writeQuery({
+        query: GET_CART_ITEMS,
+        data: { cartItems: newCartItems },
+      });
+      //return new array
+      return newCartItems;
+    },
+    removeItem: (_root, { item }, { cache }, _info) => {
+      //get from cashe
+      const { cartItems } = cache.readQuery({ query: GET_CART_ITEMS });
+      //create new array
+      const newCartItems = removeItemFromCart(cartItems, item);
       //write in cache
       cache.writeQuery({
         query: GET_CART_ITEMS,

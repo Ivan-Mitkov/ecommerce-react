@@ -1,24 +1,18 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import "./styles.scss";
-import {
-  removeItem,
-  decreaseQuantity,
-  addItem,
-} from "../../redux/cart/cartActions";
 
-const CheckoutItem = ({ cartItem }) => {
-  const dispatch = useDispatch();
-  const { name, imageUrl, price, quantity } = cartItem;
+const CheckoutItem = ({ cartItem, addItem, decreaseQuantity, removeItem }) => {
   const handleClick = () => {
-    dispatch(removeItem(cartItem));
+    removeItem(cartItem);
   };
   const handleIncrease = () => {
-    dispatch(addItem(cartItem));
+    addItem(cartItem);
   };
   const handleDecrease = () => {
-    dispatch(decreaseQuantity(cartItem));
+    decreaseQuantity(cartItem);
   };
+  const { name, imageUrl, price, quantity } = cartItem;
+
   return (
     <div className="checkout-item">
       <div className="image-container">

@@ -23,7 +23,7 @@ const Container = () => {
   if (loading) return <Spinner />;
   if (error) return `Error! ${error.message}`;
   return (
-    <Overview collections={data.collections}>{console.log(data)}</Overview>
+    <Overview collections={data.collections}></Overview>
   );
 };
 

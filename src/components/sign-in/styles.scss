@@ -13,4 +13,18 @@
     justify-content: space-between;
     flex-wrap: wrap;
   }
+  @media screen and(max-width:900px) {
+    margin-bottom: 80px;
+    min-width: 300px;
+    .buttons {
+      flex-direction: column;
+      & :last-child {
+        margin-top: 12px;
+      }
+    }
+  }
+  @media screen and(max-width:360px) {
+    margin-bottom: 80px;
+    min-width: 220px;
+  }
 }

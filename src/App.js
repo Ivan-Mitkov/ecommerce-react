@@ -6,6 +6,7 @@ import Header from "./components/header";
 // import { selectCollectionsForPreview } from "./redux/shop/shopSelector";
 import { checkUserSession } from "./redux/user/userActions";
 import Spinner from "./components/spinner";
+import ErrorBoundary from "./components/error_boundary";
 const ShopPage = lazy(() => import("./pages/shop/shop.component"));
 const HomePage = lazy(() => import("./pages/homepage/homepage.component"));
 const SignInUp = lazy(() => import("./pages/auth/SignInUp"));
@@ -24,7 +25,8 @@ function App({ currentUser }) {
       <GlobalStyle />
       <Header />
       <Switch>
-          <Suspense fallback={Spinner}>
+        <Suspense fallback={<Spinner />}>
+          <ErrorBoundary>
             <Route exact path="/" component={HomePage}></Route>
             <Route path="/shop" component={ShopPage}></Route>
             <Route
@@ -49,8 +51,8 @@ function App({ currentUser }) {
                 );
               }}
             ></Route>
-          </Suspense>
-        
+          </ErrorBoundary>
+        </Suspense>
       </Switch>
     </>
   );

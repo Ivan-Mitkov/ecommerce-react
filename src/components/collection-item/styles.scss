@@ -1,5 +1,6 @@
 .collection-item {
-  width: 22vw;
+  width: 22wv;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   height: 350px;
@@ -17,7 +18,7 @@
     background-position: center;
     margin-bottom: 5px;
     @media screen and(max-width:800px) {
-      background-position: center;
+      background-position: top;
     }
   }
 
@@ -27,6 +28,9 @@
     position: absolute;
     top: 255px;
     display: none;
+    @media screen and(max-width:800px) {
+      top: 150px;
+    }
   }
 
   &:hover {

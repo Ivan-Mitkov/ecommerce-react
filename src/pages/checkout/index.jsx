@@ -35,7 +35,7 @@ const Checkout = ({ cartItems, total }) => {
       <div className="total">TOTAL: ${total}</div>
       <StripeButton price={total} />
       <div className='test-warning'>
-        <a href="https://stripe.com/docs/testing" target="_blank">
+        <a href="https://stripe.com/docs/testing" target="_blank" rel="noopener noreferrer">
           {" "}
           *Testing cards numbers for stripe*
         </a>

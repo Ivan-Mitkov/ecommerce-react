@@ -24,7 +24,7 @@ import {
 } from "./userActions";
 
 function* getSnapshotFromUserAuth(userAuth, additionalData) {
-  console.log(additionalData);
+  // console.log(additionalData);
   //work in firebase
   try {
     const userRef = yield call(

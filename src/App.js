@@ -1,7 +1,7 @@
 import React from "react";
-import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useDispatch, connect } from "react-redux";
+import { GlobalStyle } from "./globalStyles";
 import Header from "./components/header";
 import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
@@ -9,6 +9,7 @@ import SignInUp from "./pages/auth/SignInUp";
 import Checkout from "./pages/checkout";
 // import { selectCollectionsForPreview } from "./redux/shop/shopSelector";
 import { checkUserSession } from "./redux/user/userActions";
+
 //USING SAGA FOR SIGN IN
 function App({ currentUser }) {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function App({ currentUser }) {
   }, []);
   return (
     <>
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage}></Route>

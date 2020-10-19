@@ -38,4 +38,12 @@
       color: red;
     }
   }
+  @media screen and (max-width:600px){
+    .checkout-header {
+      display: none;
+    }
+    .total {
+      margin-left: 0px;
+    }
+  }
 }

@@ -6,12 +6,19 @@
   align-items: center;
   position: relative;
   margin: 4px;
+  @media screen and(max-width:800px) {
+    width: 100%;
+    height: 250px;
+  }
   .image {
     width: 100%;
     height: 95%;
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
+    @media screen and(max-width:800px) {
+      background-position: center;
+    }
   }
 
   .custom-button {

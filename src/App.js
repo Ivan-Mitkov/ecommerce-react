@@ -18,39 +18,39 @@ function App({ currentUser }) {
     dispatch(checkUserSession());
     // eslint-disable-next-line
   }, []);
+
   return (
     <>
       <GlobalStyle />
       <Header />
       <Switch>
-        <Suspense fallback={Spinner}>
-          <Route exact path="/" component={HomePage}></Route>
-          <Route path="/shop" component={ShopPage}></Route>
-          <Route
-            exact
-            path="/signin"
-            render={(props) => {
-              return currentUser ? (
-                <Redirect to="/" {...props} />
-              ) : (
-                <SignInUp {...props} />
-              );
-            }}
-          ></Route>
-          <Route
-            exact
-            path="/checkout"
-            // component={Checkout}
-            render={(props) => {
-              return currentUser ? (
-                <Checkout to="/checkout" {...props} />
-              ) : (
-                <Redirect to="/signin" {...props} />
-              );
-            }}
-          ></Route>
-        </Suspense>
-        {/* <Route exact path="/checkout" component={Checkout}></Route> */}
+          <Suspense fallback={Spinner}>
+            <Route exact path="/" component={HomePage}></Route>
+            <Route path="/shop" component={ShopPage}></Route>
+            <Route
+              exact
+              path="/signin"
+              render={(props) => {
+                return currentUser ? (
+                  <Redirect to="/" {...props} />
+                ) : (
+                  <SignInUp {...props} />
+                );
+              }}
+            ></Route>
+            <Route
+              exact
+              path="/checkout"
+              render={(props) => {
+                return currentUser ? (
+                  <Checkout to="/checkout" {...props} />
+                ) : (
+                  <Redirect to="/signin" {...props} />
+                );
+              }}
+            ></Route>
+          </Suspense>
+        
       </Switch>
     </>
   );
